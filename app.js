@@ -13,6 +13,10 @@ app.use(express.static('./public/js'))
 // parses the body of req
 app.use(express.urlencoded({'extended':false}))
 
+app.get('/profile/:user',(req,res)=>{
+    res.render('userHome');
+})
+
 // app.get('/profile',(req,res)=>{
 //     res.render('profile');
 // })

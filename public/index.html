@@ -10,20 +10,23 @@
 
     <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
 
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/helpers.css">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/landing-2.css">
     
     <script src="https://kit.fontawesome.com/a27b07fa54.js" crossorigin="anonymous"></script>
+
+     <!-- Bootstrap Scripts -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     
   </head>
 	<body data-spy="scroll" data-target="#pb-navbar" data-offset="200">
 
     <nav class="navbar navbar-expand-lg navbar-dark pb_navbar pb_scrolled-light" id="pb-navbar">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Landing</a>
+        <a class="navbar-brand" href="index.html">FaceGallery</a>
         <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="Toggle navigation">
           <span><i class="ion-navicon"></i></span>
         </button>
@@ -31,10 +34,8 @@
           <ul class="navbar-nav ml-auto">
             <li class="nav-item"><a class="nav-link" href="#section-home">Home</a></li>
             <li class="nav-item"><a class="nav-link" href="#section-features">Features</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-reviews">Reviews</a></li>
-            <li class="nav-item"><a class="nav-link" href="#section-pricing">Pricing</a></li>
             <li class="nav-item"><a class="nav-link" href="#section-faq">FAQ</a></li>
-            <li class="nav-item cta-btn ml-xl-2 ml-lg-2 ml-md-0 ml-sm-0 ml-0"><a class="nav-link" href="https://uicookies.com/" target="_blank"><span class="pb_rounded-4 px-4">Get Started</span></a></li>
+            <li class="nav-item cta-btn ml-xl-2 ml-lg-2 ml-md-0 ml-sm-0 ml-0"><a class="nav-link" href="" data-bs-toggle="modal" data-bs-target="#modal-login-form" ><span class="pb_rounded-4 px-4"><b>LOGIN</b></span></a></li>
           </ul>
         </div>
       </div>
@@ -48,10 +49,9 @@
       <div class="container">
         <div class="row align-items-center justify-content-center">
           <div class="col-md-6">
-            <h2 class="heading mb-3">Fly makes you faster</h2>
+            <h2 class="heading mb-3">FaceGallery is your Friend!</h2>
             <div class="sub-heading">
-              <p class="mb-4">New free template by <a href="http://uicookies.com" target="_blank">uicookies.com</a>. For more templates visit the <a href="http://uicookies.com" target="_blank">site</a>. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-              <p class="mb-5"><a class="btn btn-success btn-lg pb_btn-pill smoothscroll" href="#section-pricing"><span class="pb_font-14 text-uppercase pb_letter-spacing-1">See Pricing</span></a></p>
+              <p class="mb-4">Quick and Easy way to find your favourite pictures!</p>
             </div>
           </div>
           <div class="col-md-1">
@@ -148,6 +148,40 @@
       </div>
     </section>
     <!-- END section -->
+
+  <!-- Log in modal -->
+  <div class="modal fade" id="modal-login-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold"><span style="font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 1.6rem">FaceGallery</span>  |  Login</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body mx-3">
+          <form id="login-form">
+            <div class="md-form mb-4">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="login-email" name="email" placeholder="name@example.com" required>
+                <label for="floatingEmail">Email</label>
+              </div>
+            </div>
+
+            <div class="md-form mb-4">
+              <div class="form-floating">
+                <input type="password" class="form-control" id="login-pass" name="password" placeholder="Password" required>
+                <label for="floatingPassword">Password</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <button type="submit" form="login-form" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <script type = "module" src ="js/firebase.js"></script>
     
 

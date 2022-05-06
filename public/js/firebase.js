@@ -1,6 +1,6 @@
 import { initializeApp } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
-import {  getAuth, createUserWithEmailAndPassword, updateProfile } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import {  getAuth, createUserWithEmailAndPassword, updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 const firebaseConfig = {
     apiKey: "AIzaSyCawCarNT9kYzWMNzb3SJs0szA6ab4vp5w",
     authDomain: "galleryface-dfb6b.firebaseapp.com",
@@ -12,6 +12,12 @@ const firebaseConfig = {
   };
 
 initializeApp(firebaseConfig)
+
+// Helper for Post Requests
+
+window.post = function(url, data) {
+  return fetch(url, {method: "POST", headers: {'Content-Type': 'application/json'}, body: JSON.stringify(data)});
+}
 
 // Initialise FireBase functionalities
 
@@ -50,4 +56,31 @@ signupForm.addEventListener('submit', (e) => {
     .catch(err => {
       console.log(err.message)
     })
+})
+
+// User Login
+
+const loginForm = document.querySelector('#login-form')
+loginForm.addEventListener('submit', (e) => {
+  e.preventDefault()
+
+  const email = loginForm.email.value
+  const password = loginForm.password.value
+
+  signInWithEmailAndPassword(auth,email, password)
+  .then(cred => {
+    // close the signup modal & reset form
+    $('#modal-login-form').modal('hide');
+    loginForm.reset();
+    window.location = "/profile/"+cred.user.uid
+    // post("/", {DisplayName: "cred.user.name", uuidL "cred.user.uuid" });
+})
+.then((result)=>{
+  console.log("")
+})
+.catch((error) => {
+    console.log(err.message)
+    alert(error.message + " (" + error.code + ")");
+    document.getElementById("signup-pass").value = "";
+});
 })
