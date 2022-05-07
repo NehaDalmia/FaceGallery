@@ -1,6 +1,7 @@
 import { initializeApp } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs , setDoc , doc} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {  getAuth, createUserWithEmailAndPassword, updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import { getStorage, ref } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
 const firebaseConfig = {
     apiKey: "AIzaSyCawCarNT9kYzWMNzb3SJs0szA6ab4vp5w",
     authDomain: "galleryface-dfb6b.firebaseapp.com",
@@ -23,7 +24,8 @@ window.post = function(url, data) {
 
 const db = getFirestore()
 const auth = getAuth()
-const colref = collection(db,'friends')
+const colref = collection(db,'users')
+
 getDocs(colref)
   .then((snapshot) =>{
     let books = []
@@ -45,6 +47,10 @@ signupForm.addEventListener('submit', (e) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then(cred => {
       console.log('user created:', cred.user)
+      setDoc(doc(db,'users',cred.user.uid),{
+        name : name
+      })
+      console.log("entry added", doc(db,'users',cred.user.uid))  
       signupForm.reset()
     })
     .then((result)=>{
@@ -56,6 +62,7 @@ signupForm.addEventListener('submit', (e) => {
     .catch(err => {
       console.log(err.message)
     })
+  
 })
 
 // User Login
@@ -84,3 +91,4 @@ loginForm.addEventListener('submit', (e) => {
     document.getElementById("signup-pass").value = "";
 });
 })
+
