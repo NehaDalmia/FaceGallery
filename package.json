@@ -9,8 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@azure/cognitiveservices-face": "^5.0.0",
+    "@azure/ms-rest-js": "^2.6.1",
     "ejs": "^3.1.7",
     "express": "^4.18.1",
+    "glob": "^8.0.1",
+    "nanogallery2": "^3.0.5",
+    "path": "^0.12.7",
     "uuid": "^8.3.2"
   },
   "devDependencies": {

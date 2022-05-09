@@ -1,6 +1,7 @@
+
 import { initializeApp } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
-import { getFirestore, collection, getDocs , setDoc , doc, updateDoc, arrayUnion} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
-import {  getAuth, createUserWithEmailAndPassword, updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import { getFirestore, collection, getDocs , getDoc, setDoc , doc, updateDoc, arrayUnion} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
+import {  getAuth, onAuthStateChanged , updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -17,6 +18,55 @@ initializeApp(firebaseConfig);
 const storage = getStorage();
 const db = getFirestore()
 const auth = getAuth()
+
+let userId;
+let imageUrls = []
+
+
+
+
+async function DetectFaceRecognize(url) {
+  // Detect faces from image URL. Since only recognizing, use the recognition model 4.
+  // We use detection model 3 because we are only retrieving the qualityForRecognition attribute.
+  // Result faces with quality for recognition lower than "medium" are filtered out.
+  let detected_faces = await client.face.detectWithUrl(url,
+      {
+          detectionModel: "detection_03",
+          recognitionModel: "recognition_04",
+          returnFaceAttributes: ["QualityForRecognition"]
+      });
+  console.log("success")
+  return detected_faces.filter(face => face.faceAttributes.qualityForRecognition == 'high' || face.faceAttributes.qualityForRecognition == 'medium');
+}
+
+// Processing on login time
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in
+    const docRef = doc(db, "users", user.uid);
+    getDoc(docRef).then((snapshot) => { 
+      let docData = snapshot.data();
+      imageUrls = docData.images;
+      let friendNames = docData.friendNames;
+      for (let index = 0; index < friendNames.length; index++) {
+        addFriend(friendNames[index],index)
+      }
+      for (let index = 0; index < imageUrls.length; index++) {
+        console.log(imageUrls[index]);
+        addImage(imageUrls[index])
+        DetectFaceRecognize(imageUrls[index])
+    }
+
+    });
+
+    
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
 
 
 // storing images to firebase and storing its url in user database
@@ -75,6 +125,8 @@ imageUploadForm.addEventListener('submit',(e) => {
       updateDoc(docRef,{
         images: arrayUnion(downloadURL)
       });
+      addImage(downloadURL)
+      
     });
   })
 })
@@ -136,11 +188,28 @@ friendUploadForm.addEventListener('submit',(e) => {
         friendsPictures: arrayUnion(downloadURL),
         friendNames : arrayUnion(name)
       });
+      addFriend(name)
     });
   })
 })
 
-// var friendProfilePictures
 
-var friendPic = document.querySelector('.friendPic')
-friendPic.setAttribute("src","https://firebasestorage.googleapis.com/v0/b/galleryface-dfb6b.appspot.com/o/271278120_661463331879506_4925854734208269343_n.jpg?alt=media&token=9facbdb0-cd98-4dfa-8ca2-b69fc4ffd24e")
+function addImage(imageUrl)
+{
+  var elem = document.createElement("img");
+  console.log(imageUrl)
+  elem.setAttribute("src", imageUrl);
+  elem.setAttribute("height", "30");
+  elem.setAttribute("width", "30");
+  document.getElementById("img").appendChild(elem);
+}
+
+function addFriend(friendName,index)
+{
+  var elem = document.createElement("a")
+  elem.setAttribute("href",window.location+"/"+index)
+  elem.textContent = friendName
+  document.getElementById("homeSubmenu").appendChild(elem);
+}
+
+
