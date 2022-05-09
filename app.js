@@ -2,7 +2,7 @@
 
 const msRest = require("@azure/ms-rest-js");
 const Face = require("@azure/cognitiveservices-face");
-const uuid = require("uuid/v4");
+// const uuid = require("uuid/v4");
 
 key = "1a11b1b99c844e58a47679a1452d6c11"
 endpoint = "https://face-neha.cognitiveservices.azure.com/"
