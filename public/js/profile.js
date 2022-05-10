@@ -22,23 +22,6 @@ const auth = getAuth()
 let userId;
 let imageUrls = []
 
-
-
-
-async function DetectFaceRecognize(url) {
-  // Detect faces from image URL. Since only recognizing, use the recognition model 4.
-  // We use detection model 3 because we are only retrieving the qualityForRecognition attribute.
-  // Result faces with quality for recognition lower than "medium" are filtered out.
-  let detected_faces = await client.face.detectWithUrl(url,
-      {
-          detectionModel: "detection_03",
-          recognitionModel: "recognition_04",
-          returnFaceAttributes: ["QualityForRecognition"]
-      });
-  console.log("success")
-  return detected_faces.filter(face => face.faceAttributes.qualityForRecognition == 'high' || face.faceAttributes.qualityForRecognition == 'medium');
-}
-
 // Processing on login time
 
 onAuthStateChanged(auth, (user) => {
@@ -53,9 +36,7 @@ onAuthStateChanged(auth, (user) => {
         addFriend(friendNames[index],index)
       }
       for (let index = 0; index < imageUrls.length; index++) {
-        console.log(imageUrls[index]);
         addImage(imageUrls[index])
-        DetectFaceRecognize(imageUrls[index])
     }
 
     });
@@ -74,67 +55,75 @@ onAuthStateChanged(auth, (user) => {
 
 const imageUploadForm = document.querySelector('#myFile')
 imageUploadForm.addEventListener('submit',(e) => {
-  const image = e.target[0].files[0];
-  console.log(image.name)
-  const metadata = {
-    contentType: image.type
-  };
-  const storageRef = ref(storage,image.name);
-  const uploadTask = uploadBytesResumable(storageRef, image, metadata);
-  console.log("uploaded!")
-  imageUploadForm.reset();
 
-  uploadTask.on('state_changed',
-  (snapshot) => {
-    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-    console.log('Upload is ' + progress + '% done');
-    switch (snapshot.state) {
-      case 'paused':
-        console.log('Upload is paused');
-        break;
-      case 'running':
-        console.log('Upload is running');
-        break;
-    }
-  }, 
-  (error) => {
-    // A full list of error codes is available at
-    // https://firebase.google.com/docs/storage/web/handle-errors
-    switch (error.code) {
-      case 'storage/unauthorized':
-        // User doesn't have permission to access the object
-        break;
-      case 'storage/canceled':
-        // User canceled the upload
-        break;
+  let uploadArr = e.target[0].files;
+  console.log(uploadArr.length)
+  for(let index = 0; index<uploadArr.length; index++)
+  {
+    const image = e.target[0].files[index];
+    console.log(image.name)
+    const metadata = {
+      contentType: image.type
+    };
+    const storageRef = ref(storage,image.name);
+    const uploadTask = uploadBytesResumable(storageRef, image, metadata);
+    console.log("uploaded!")
+    
 
-      // ...
+    uploadTask.on('state_changed',
+    (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          console.log('Upload is running');
+          break;
+      }
+    }, 
+    (error) => {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
 
-      case 'storage/unknown':
-        // Unknown error occurred, inspect error.serverResponse
-        break;
-    }
-  }, 
-  () => {
-    // Upload completed successfully, now we can get the download URL
-    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-      console.log('File available at', downloadURL);
-      console.log(auth.currentUser.uid)
-      const docRef = doc(db,'users',auth.currentUser.uid);
-      updateDoc(docRef,{
-        images: arrayUnion(downloadURL)
+        // ...
+
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+    }, 
+    () => {
+      // Upload completed successfully, now we can get the download URL
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log('File available at', downloadURL);
+        console.log(auth.currentUser.uid)
+        const docRef = doc(db,'users',auth.currentUser.uid);
+        updateDoc(docRef,{
+          images: arrayUnion(downloadURL)
+        });
+        addImage(downloadURL)
+        
       });
-      addImage(downloadURL)
-      
-    });
-  })
+    })
+  } 
+  imageUploadForm.reset();
 })
 
 // Add friend name and picture
 
 const friendUploadForm = document.querySelector('#myFriend')
 friendUploadForm.addEventListener('submit',(e) => {
+  
   const image = e.target[0].files[0];
   const name = friendUploadForm.friendName.value;
   console.log(image.name)
@@ -194,10 +183,11 @@ friendUploadForm.addEventListener('submit',(e) => {
 })
 
 
+
+
 function addImage(imageUrl)
 {
   var elem = document.createElement("img");
-  console.log(imageUrl)
   elem.setAttribute("src", imageUrl);
   elem.setAttribute("height", "30");
   elem.setAttribute("width", "30");
