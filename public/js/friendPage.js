@@ -38,19 +38,12 @@ const auth = getAuth()
 
 // Processing on Entering page
 
-const MODEL_URL = '/models'
-
-await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
-await faceapi.loadFaceLandmarkModel(MODEL_URL)
-await faceapi.loadFaceRecognitionModel(MODEL_URL)
-await faceapi.loadFaceExpressionModel(MODEL_URL)
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
     const docRef = doc(db, "users", user.uid);
     getDoc(docRef).then((snapshot) => { 
-      console.log(friendIndex)
       let docData = snapshot.data();
       let friendName = docData.friendNames[friendIndex];
       let friendDisplayURL  = docData.friendsPictures[friendIndex];
@@ -85,7 +78,7 @@ $('#modal').on('hide.bs.modal', function () {
    $('.col-6,.row .thumbnail').removeClass('blur');
 })
 
-function addImage(imageUrl)
+async function addImage(imageUrl)
 {
   var outerdivone = document.createElement("div");
   outerdivone.setAttribute("class","col-lg-4 col-sm-6");
@@ -146,6 +139,12 @@ function faceAPIAzure(friendDisplayURL, uploadImages)
 
 async function faceAPIJS(friendDisplayURL,uploadImages)
 {
+  const MODEL_URL = '/models'
+
+  await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
+  await faceapi.loadFaceLandmarkModel(MODEL_URL)
+  await faceapi.loadFaceRecognitionModel(MODEL_URL)
+  await faceapi.loadFaceExpressionModel(MODEL_URL)
   const faceToFind = await faceapi.fetchImage(friendDisplayURL)
   const singleResult = await faceapi
   .detectSingleFace(faceToFind)
@@ -163,6 +162,7 @@ async function faceAPIJS(friendDisplayURL,uploadImages)
 async function faceAPIJS_img(singleResult, referenceImgURL)
 {
   
+
   const referenceImage = await faceapi.fetchImage(referenceImgURL)
   const results = await faceapi
   .detectAllFaces(referenceImage)
