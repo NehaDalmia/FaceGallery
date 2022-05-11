@@ -49,9 +49,9 @@ onAuthStateChanged(auth, (user) => {
       let friendDisplayURL  = docData.friendsPictures[friendIndex];
       let displayName = document.getElementById("friend-name");
       displayName.textContent = "Memories With: "+friendName;
-      
-      // Getting Matching Faces
       console.log(friendDisplayURL)
+
+      // Getting Matching Images
       let uploadImages = docData.images;
       //faceAPIAzure(friendDisplayURL, uploadImages);
       faceAPIJS(friendDisplayURL,uploadImages);
@@ -70,13 +70,13 @@ $('.thumbnail').click(function(){
 	$('#modal').modal({show:true});
 });
 
-$('#modal').on('show.bs.modal', function () {
-   $('.col-6,.row .thumbnail').addClass('blur');
-})
+// $('#modal').on('show.bs.modal', function () {
+//    $('.col-6,.row .thumbnail').addClass('blur');
+// })
 
-$('#modal').on('hide.bs.modal', function () {
-   $('.col-6,.row .thumbnail').removeClass('blur');
-})
+// $('#modal').on('hide.bs.modal', function () {
+//    $('.col-6,.row .thumbnail').removeClass('blur');
+// })
 
 async function addImage(imageUrl)
 {
@@ -84,6 +84,7 @@ async function addImage(imageUrl)
   outerdivone.setAttribute("class","col-lg-4 col-sm-6");
   var outerdivtwo =  document.createElement("div");
   outerdivtwo.setAttribute("class","thumbnail img-responsive");
+  outerdivtwo.setAttribute("id","thumbnail");
   outerdivone.appendChild(outerdivtwo);
 
   var aTag = document.createElement("a");
@@ -95,6 +96,14 @@ async function addImage(imageUrl)
   outerdivtwo.appendChild(aTag);
 
   document.getElementById("row-class").appendChild(outerdivone);
+
+  // add listeners
+  $(document).on('click', '#thumbnail', function() {
+    $('.modal-body').empty();
+    $($(this).parents('div').html()).appendTo('.modal-body');
+    $('#modal').modal({show:true});
+  });
+  
 }
 
 function faceAPIAzure(friendDisplayURL, uploadImages)
