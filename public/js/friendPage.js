@@ -4,11 +4,11 @@ import { getFirestore, collection, getDocs , getDoc, setDoc , doc, updateDoc, ar
 import {  getAuth, onAuthStateChanged , updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
 
-const key = "1a11b1b99c844e58a47679a1452d6c11"
-const endpoint = "https://face-neha.cognitiveservices.azure.com/"
+// const key = "1a11b1b99c844e58a47679a1452d6c11"
+// const endpoint = "https://face-neha.cognitiveservices.azure.com/"
 
-const credentials = new msRest.ApiKeyCredentials({ inHeader: { 'Ocp-Apim-Subscription-Key': key } });
-const client = new Azure.CognitiveservicesFace.FaceClient(credentials, endpoint);
+// const credentials = new msRest.ApiKeyCredentials({ inHeader: { 'Ocp-Apim-Subscription-Key': key } });
+// const client = new Azure.CognitiveservicesFace.FaceClient(credentials, endpoint);
 
 async function DetectFaceRecognize(url) {
   let detected_faces = await client.face.detectWithUrl(url,
