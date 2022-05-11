@@ -13,6 +13,7 @@
     "@azure/ms-rest-js": "^2.6.1",
     "ejs": "^3.1.7",
     "express": "^4.18.1",
+    "face-api.js": "^0.22.2",
     "glob": "^8.0.1",
     "nanogallery2": "^3.0.5",
     "path": "^0.12.7",

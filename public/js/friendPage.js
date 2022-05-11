@@ -38,6 +38,13 @@ const auth = getAuth()
 
 // Processing on Entering page
 
+const MODEL_URL = '/models'
+
+await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
+await faceapi.loadFaceLandmarkModel(MODEL_URL)
+await faceapi.loadFaceRecognitionModel(MODEL_URL)
+await faceapi.loadFaceExpressionModel(MODEL_URL)
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
@@ -50,48 +57,11 @@ onAuthStateChanged(auth, (user) => {
       let displayName = document.getElementById("friend-name");
       displayName.textContent = "Memories With: "+friendName;
       
-      console.log(friendDisplayURL)
-      //addImage(friendDisplayURL)
-
       // Getting Matching Faces
+      console.log(friendDisplayURL)
       let uploadImages = docData.images;
-      async function main() 
-      {
-        let detected_faces = await  DetectFaceRecognize(friendDisplayURL);
-        for (let index = 0; index < uploadImages.length; index++) 
-        {
-          
-          
-          const imgURL = uploadImages[index];
-          console.log(imgURL)
-
-          if(detected_faces == undefined || detected_faces.length ==0)
-            return;
-
-          let target_faces = await  DetectFaceRecognize(imgURL); 
-
-          if(target_faces == undefined || target_faces.length ==0)
-            return;
-
-          let target_face_ids = []
-          target_faces.forEach(element => {
-            target_face_ids.push(element.faceId)
-          });
-            let results = await client.face.findSimilar(detected_faces[0].faceId, { faceIds : target_face_ids });
-            if(results != undefined && results.length != 0)
-            {
-              console.log("Match Found with confidence: " + results[0].confidence)
-              addImage(imgURL)
-            }
-            else 
-              console.log("No match found")
-              
-              
-        } 
-        
-      }
-      main();
-      console.log ("Done.");
+      //faceAPIAzure(friendDisplayURL, uploadImages);
+      faceAPIJS(friendDisplayURL,uploadImages);
     });
 
     
@@ -125,11 +95,93 @@ function addImage(imageUrl)
 
   var aTag = document.createElement("a");
   aTag.setAttribute("title","Image");
+  //aTag.setAttribute("href","#")
   var imageTag = document.createElement("img")
   imageTag.setAttribute("src",imageUrl);
   aTag.appendChild(imageTag)
   outerdivtwo.appendChild(aTag);
 
   document.getElementById("row-class").appendChild(outerdivone);
-  console.log("Done HERE");
+}
+
+function faceAPIAzure(friendDisplayURL, uploadImages)
+{
+  async function main() 
+  {
+    let detected_faces = await  DetectFaceRecognize(friendDisplayURL);
+    for (let index = 0; index < uploadImages.length; index++) 
+    {
+      
+      
+      const imgURL = uploadImages[index];
+      console.log(imgURL)
+
+      if(detected_faces == undefined || detected_faces.length ==0)
+        return;
+
+      let target_faces = await  DetectFaceRecognize(imgURL); 
+
+      if(target_faces == undefined || target_faces.length ==0)
+        return;
+
+      let target_face_ids = []
+      target_faces.forEach(element => {
+        target_face_ids.push(element.faceId)
+      });
+        let results = await client.face.findSimilar(detected_faces[0].faceId, { faceIds : target_face_ids });
+        if(results != undefined && results.length != 0)
+        {
+          console.log("Match Found with confidence: " + results[0].confidence)
+          addImage(imgURL)
+        }
+        else 
+          console.log("No match found")
+          
+          
+    } 
+    
+  }
+  main();
+}
+
+async function faceAPIJS(friendDisplayURL,uploadImages)
+{
+  const faceToFind = await faceapi.fetchImage(friendDisplayURL)
+  const singleResult = await faceapi
+  .detectSingleFace(faceToFind)
+  .withFaceLandmarks()
+  .withFaceDescriptor()
+ 
+  if(singleResult == undefined || singleResult.length ==0)
+    return;
+  for(let index = 0; index < uploadImages.length; index++)
+  {
+    faceAPIJS_img(singleResult,uploadImages[index]);
+  }
+}
+
+async function faceAPIJS_img(singleResult, referenceImgURL)
+{
+  
+  const referenceImage = await faceapi.fetchImage(referenceImgURL)
+  const results = await faceapi
+  .detectAllFaces(referenceImage)
+  .withFaceLandmarks()
+  .withFaceDescriptors()
+  
+  if (!results.length) {
+    return
+  }
+  const faceMatcher = new faceapi.FaceMatcher(results)
+
+  const bestMatch = faceMatcher.findBestMatch(singleResult.descriptor)
+  
+  if(bestMatch != undefined && bestMatch._distance<0.5 )
+  {
+    console.log(bestMatch._distance)
+
+    addImage(referenceImgURL)
+    
+  }
+  
 }
