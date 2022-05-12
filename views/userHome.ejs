@@ -9,14 +9,18 @@
     <title>Hello and Welcome</title>
 
     <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- Our Custom CSS -->
     <link rel="stylesheet" href="../../css/userFriend.css">
+    <script src="https://kit.fontawesome.com/c6751adc48.js" crossorigin="anonymous"></script>
 
     <!-- Font Awesome JS -->
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
-
+    
+    <!--BootStrap Script Tags-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -24,34 +28,45 @@
     <div class="wrapper">
         <!-- Sidebar Holder -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>Hello, Neha</h3>
+            <div class="sidebar-header" >
+                <h3 id = "name-header">Hello</h3>
             </div>
+            
+            <style>
+                .frame1 {
+                    height: 175px;      /* Equals maximum image height */
+                    white-space: nowrap; /* This is required unless you put the helper span closely near the img */
+
+                    text-align: center;
+                    margin: 1em 0;
+                }
+
+                .helper1 {
+                    display: inline-block;
+                    height: 100%;
+                    vertical-align: middle;
+                }
+                .test {
+                  width: 175px;
+                  height: 175px;
+                  /* position: absolute; */
+                  vertical-align: middle;
+                }
+               </style>
+
 
             <ul class="list-unstyled components">
-                <p>Dummy Heading</p>
+                
+                <div style="text-align: center; " class ="frame1">
+                <span class ="helper1"></span><img class="test rounded-circle" alt="80x80" src="https://firebasestorage.googleapis.com/v0/b/galleryface-dfb6b.appspot.com/o/825EA0B4-322B-4627-B842-62B927656208.jpg?alt=media&token=5f6d4a64-6771-49ba-8457-59f2346e02c3" class ="friendPic">
+                </div>
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Home</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Friends</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">About</a>
-                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Pages</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a href="#">Page 3</a>
+                            <a role="button" id = "AddFriend" data-bs-toggle="modal" data-bs-target="#modal-login-form"><i class="fa-solid fa-circle-plus"></i> Add Friend</a>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#">Portfolio</a>
                 </li>
                 <li>
                     <a href="#">Contact</a>
@@ -60,10 +75,10 @@
 
             <ul class="list-unstyled CTAs">
                 <li>
-                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                    <a role="button" id = "AddFile" data-bs-toggle="modal" data-bs-target="#modal-image-form" class ="download">Upload Images</a>
                 </li>
                 <li>
-                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">User Guide</a>
                 </li>
             </ul>
         </nav>
@@ -85,46 +100,87 @@
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="nav navbar-nav ml-auto">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Page</a>
-                            </li>
+                            <!-- Explore Images of the Ones Closest to You! -->
                         </ul>
                     </div>
                 </div>
             </nav>
-            
-            <h2>Hello</h2>
             <body>
-                <h1>File Upload</h1>
-                <form action="#" enctype="multipart/form-data" id = "myFile">
-                  <p><input type="file" name="file" id = "image" multiple ="multiple"></p>
-                  <p><input type="submit" value="Submit"></p>
-                </form>
-                <h1>Add Friend</h1>
-                <form action="#" enctype="multipart/form-data" id = "myFriend">
-                  <p><input type="file" name="friendProfilePicture" id = "friendProfilePicture"></p>
-                  <p><input type="text" name = "friendName" id = "friendName"></p>
-                  <p><input type="submit" value="Submit"></p>
-                </form>
-               
-                <img src="" class ="friendPic">
               </body>
-              <div id = "img">
-                Pics
-              </div>
-              </div>    
-              <script type ="module" src="../js/profile.js"></script>
+
+<!-- Gallery Section Start -->
+              <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>
+
+ <div class="container">
+         <div class="portfolio-item row" id ="homepage-gallery">
+           
+         </div>
+      </div>
+      
+<!-- Gallery Section End -->
+    <script type ="module" src="../js/profile.js"></script>
         </div>
     </div>
+
+    <!-- Add Friend modal -->
+    <div class="modal fade" id="modal-login-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold"><span style="font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 1.6rem">FaceGallery</span>  |  Add Friend</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-3">
+            <!-- <form id="login-form"> -->
+            <form action="#" enctype="multipart/form-data" id = "myFriend">
+                <div class="md-form mb-4">
+                <div class="form-floating mb-3">
+                    <p><input type="file" class="form-control" name="friendProfilePicture" id = "friendProfilePicture" placeholder="Choose Image"></p>
+                </div>
+                </div>
+
+                <div class="md-form mb-4">
+                <div class="form-floating">
+                    <p><input type="text" class="form-control" name = "friendName" id = "friendName" placeholder="Friend Name"></p>
+                </div>
+                </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" form="myFriend" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            
+        </div>
+        </div>
+    </div>
+    <!-- Add Images modal -->
+    <div class="modal fade" id="modal-image-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold"><span style="font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 1.6rem">FaceGallery</span>  |  Add Images</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-3">
+            <form action="#" enctype="multipart/form-data" id = "myFile">
+                <div class="md-form mb-4">
+                <div class="form-floating mb-3">
+                    <p><input type="file" class="form-control" name="file" id = "image" placeholder="Choose Images" multiple = "multiple"></p>
+                </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" form="myFile" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            
+        </div>
+        </div>
+    </div>
+
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

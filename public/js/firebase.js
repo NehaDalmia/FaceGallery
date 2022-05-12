@@ -51,6 +51,7 @@ signupForm.addEventListener('submit', (e) => {
         name : name
       })
       console.log("entry added", doc(db,'users',cred.user.uid))  
+      alert("Thanks for Signing Up "+ name);
       signupForm.reset()
     })
     .then((result)=>{

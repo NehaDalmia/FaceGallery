@@ -30,7 +30,9 @@ app.use(express.urlencoded({'extended':false}))
 app.get('/profile/:user',(req,res)=>{
     res.render('userHome');
 })
-
+app.post('/profile/:user',(req,res)=>{
+    res.render('userHome');
+})
 app.get('/profile/:user/:friend',(req,res)=>{
     res.render('userFriends',{friendIndex: req.params.friend});
 })

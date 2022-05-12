@@ -92,6 +92,7 @@ async function addImage(imageUrl)
   //aTag.setAttribute("href","#")
   var imageTag = document.createElement("img")
   imageTag.setAttribute("src",imageUrl);
+  imageTag.setAttribute("style","object-fit: cover")
   aTag.appendChild(imageTag)
   outerdivtwo.appendChild(aTag);
 
@@ -153,6 +154,8 @@ async function faceAPIJS(friendDisplayURL,uploadImages)
   await faceapi.loadSsdMobilenetv1Model(MODEL_URL)
   await faceapi.loadFaceLandmarkModel(MODEL_URL)
   await faceapi.loadFaceRecognitionModel(MODEL_URL)
+
+  
   //await faceapi.loadFaceExpressionModel(MODEL_URL)
   const faceToFind = await faceapi.fetchImage(friendDisplayURL)
   const singleResult = await faceapi
@@ -189,8 +192,10 @@ async function faceAPIJS_img(singleResult, referenceImgURL)
   {
     console.log(bestMatch._distance)
 
+    document.querySelector(".spinner-border").style.display = 'none';
     addImage(referenceImgURL)
     
   }
+  console.log("computation done!");
   
 }

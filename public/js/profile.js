@@ -4,6 +4,8 @@ import { getFirestore, collection, getDocs , getDoc, setDoc , doc, updateDoc, ar
 import {  getAuth, onAuthStateChanged , updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
 
+//Firebase Config
+
 const firebaseConfig = {
   apiKey: "AIzaSyCawCarNT9kYzWMNzb3SJs0szA6ab4vp5w",
   authDomain: "galleryface-dfb6b.firebaseapp.com",
@@ -13,29 +15,30 @@ const firebaseConfig = {
   appId: "1:782225845947:web:9c3618d2f666c0d341439e",
   measurementId: "G-61ZLTEHST1"
 };
+
 // Initialize Firebase
+
 initializeApp(firebaseConfig);
 const storage = getStorage();
 const db = getFirestore()
 const auth = getAuth()
 
-let userId;
-let imageUrls = []
-
 // Processing on login time
 
 onAuthStateChanged(auth, (user) => {
-  if (user) {
-    // User is signed in
+  if (user) { // User is signed in
+    
     const docRef = doc(db, "users", user.uid);
-    getDoc(docRef).then((snapshot) => { 
+    document.getElementById("name-header").textContent = "Hello, "+user.displayName;
+
+    getDoc(docRef).then((snapshot) => {   // Getting Friends from Database
       let docData = snapshot.data();
-      imageUrls = docData.images;
+      let imageUrls = docData.images;
       let friendNames = docData.friendNames;
-      for (let index = 0; index < friendNames.length; index++) {
+      for (let index = 0; friendNames!=undefined && index < friendNames.length; index++) {
         addFriend(friendNames[index],index)
       }
-      for (let index = 0; index < imageUrls.length; index++) {
+      for (let index = 0; imageUrls!=undefined && index < imageUrls.length; index++) {
         addImage(imageUrls[index])
     }
 
@@ -50,12 +53,12 @@ onAuthStateChanged(auth, (user) => {
 
 
 
-// storing images to firebase and storing its url in user database
-
+// Adding Images to Firebase Storage and Storing their URL in User Database
 
 const imageUploadForm = document.querySelector('#myFile')
 imageUploadForm.addEventListener('submit',(e) => {
 
+   e.preventDefault();
   let uploadArr = e.target[0].files;
   console.log(uploadArr.length)
   for(let index = 0; index<uploadArr.length; index++)
@@ -98,6 +101,7 @@ imageUploadForm.addEventListener('submit',(e) => {
         // ...
 
         case 'storage/unknown':
+          alert("Upload Failed, Try Again!");
           // Unknown error occurred, inspect error.serverResponse
           break;
       }
@@ -116,6 +120,7 @@ imageUploadForm.addEventListener('submit',(e) => {
       });
     })
   } 
+  $('#modal-image-form').modal('hide');
   imageUploadForm.reset();
 })
 
@@ -123,17 +128,20 @@ imageUploadForm.addEventListener('submit',(e) => {
 
 const friendUploadForm = document.querySelector('#myFriend')
 friendUploadForm.addEventListener('submit',(e) => {
-  
+  e.preventDefault();
+ console.log(e);
+  // console.log(friendUploadForm)
   const image = e.target[0].files[0];
   const name = friendUploadForm.friendName.value;
-  console.log(image.name)
+  console.log(image);
+  console.log(name);
   const metadata = {
     contentType: image.type
   };
   const storageRef = ref(storage,image.name);
   const uploadTask = uploadBytesResumable(storageRef, image, metadata);
   console.log("uploaded!")
-  friendUploadForm.reset();
+  
 
   uploadTask.on('state_changed',
   (snapshot) => {
@@ -171,15 +179,17 @@ friendUploadForm.addEventListener('submit',(e) => {
     // Upload completed successfully, now we can get the download URL
     getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
       console.log('File available at', downloadURL);
-      console.log(auth.currentUser.uid)
+      console.log(auth.currentUser.uid);
       const docRef = doc(db,'users',auth.currentUser.uid);
       updateDoc(docRef,{
         friendsPictures: arrayUnion(downloadURL),
         friendNames : arrayUnion(name)
       });
-      addFriend(name)
+      addFriend(name);
     });
   })
+  $('#modal-login-form').modal('hide');
+  friendUploadForm.reset();
 })
 
 
@@ -187,18 +197,28 @@ friendUploadForm.addEventListener('submit',(e) => {
 
 function addImage(imageUrl)
 {
+  
+  var divTag = document.createElement("outerDiv");
+  var aTag = document.createElement("outerA");
   var elem = document.createElement("img");
+  divTag.setAttribute("class","item selfie col-lg-3 col-md-4 col-6 col-sm");
+  aTag.setAttribute("href",imageUrl);
+  aTag.setAttribute("class","fancylight popup-btn");
+  aTag.setAttribute("data-fancybox-group","light")
   elem.setAttribute("src", imageUrl);
-  elem.setAttribute("height", "30");
-  elem.setAttribute("width", "30");
-  document.getElementById("img").appendChild(elem);
+  elem.setAttribute("class", "img-fluid");
+  elem.setAttribute("alt", "");
+  elem.setAttribute("style","object-fit: cover")
+  divTag.appendChild(aTag);
+  aTag.appendChild(elem);
+  document.getElementById("homepage-gallery").appendChild(divTag);
 }
 
 function addFriend(friendName,index)
 {
-  var elem = document.createElement("a")
-  elem.setAttribute("href",window.location+"/"+index)
-  elem.textContent = friendName
+  var elem = document.createElement("a");
+  elem.setAttribute("href",window.location+"/"+index);
+  elem.textContent = friendName;
   document.getElementById("homeSubmenu").appendChild(elem);
 }
 
