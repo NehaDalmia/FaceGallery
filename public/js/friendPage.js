@@ -210,6 +210,7 @@ async function faceAPIJS_img(singleResult, referenceImgURL)
     console.log(bestMatch._distance)
 
     document.querySelector(".spinner-border").style.display = 'none';
+    document.getElementById("downloadButton").setAttribute("style","display: block;")
     addImage(referenceImgURL)
     imageUrls.push(referenceImgURL)
   }

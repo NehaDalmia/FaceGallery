@@ -117,3 +117,22 @@ footer a:hover {
 	from{ bottom:-100px; opacity:0 } 
 	to{ bottom:0; opacity:1 }
   }
+  .header-message
+{
+    /* width: 70%;
+    height: auto; */
+	padding-right: 2%;
+}
+
+.header-div
+{
+    display: flex;
+	
+}
+
+.download-button
+{
+	height: 50%;
+	margin-top: 2.5%;
+	
+}
