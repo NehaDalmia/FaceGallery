@@ -36,6 +36,8 @@ const storage = getStorage();
 const db = getFirestore()
 const auth = getAuth()
 
+let imageUrls = [];
+let friendName;
 // Processing on Entering page
 
 
@@ -45,7 +47,7 @@ onAuthStateChanged(auth, (user) => {
     const docRef = doc(db, "users", user.uid);
     getDoc(docRef).then((snapshot) => { 
       let docData = snapshot.data();
-      let friendName = docData.friendNames[friendIndex];
+      friendName = docData.friendNames[friendIndex];
       let friendDisplayURL  = docData.friendsPictures[friendIndex];
       let displayName = document.getElementById("friend-name");
       displayName.textContent = "Memories With: "+friendName;
@@ -54,7 +56,9 @@ onAuthStateChanged(auth, (user) => {
       // Getting Matching Images
       let uploadImages = docData.images;
       //faceAPIAzure(friendDisplayURL, uploadImages);
-      faceAPIJS(friendDisplayURL,uploadImages);
+     
+      faceAPIJS(friendDisplayURL,uploadImages)
+     
     });
 
     
@@ -63,6 +67,19 @@ onAuthStateChanged(auth, (user) => {
     // ...
   }
 });
+
+const downloadBtn = document.getElementById("downloadButton");
+downloadBtn.addEventListener("click", function()
+{
+  console.log(imageUrls);
+  if(imageUrls ==  undefined || imageUrls.length ==0)
+  {
+    alert("Please Wait For The Images To Load Before Downloading");
+    return;
+  }
+  downloadAndZip(imageUrls);
+});
+
 
 $('.thumbnail').click(function(){
 	$('.modal-body').empty();
@@ -194,8 +211,42 @@ async function faceAPIJS_img(singleResult, referenceImgURL)
 
     document.querySelector(".spinner-border").style.display = 'none';
     addImage(referenceImgURL)
-    
+    imageUrls.push(referenceImgURL)
   }
   console.log("computation done!");
   
+}
+
+// Zipping and Downloading Files
+
+
+const download = url => {
+  return fetch(url).then(resp => resp.blob());
+};
+
+const downloadByGroup = (urls, files_per_group=5) => {
+  return Promise.map(
+    urls, 
+    async url => {
+      return await download(url);
+    },
+    {concurrency: files_per_group}
+  );
+}
+
+const exportZip = blobs => {
+  const zip = JSZip();
+  blobs.forEach((blob, i) => {
+    zip.file(`file-${i}.jpg`, blob);
+  });
+  zip.generateAsync({type: 'blob'}).then(zipFile => {
+    const currentDate = new Date().getTime();
+    const fileName = `combined-${friendName}.zip`;
+    return saveAs(zipFile, fileName);
+  });
+}
+
+function downloadAndZip(urls)
+{
+  return downloadByGroup(urls, 5).then(exportZip);
 }
