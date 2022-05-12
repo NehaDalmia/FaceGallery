@@ -56,21 +56,24 @@
 
 
             <ul class="list-unstyled components">
+
+               
                 
                 <div style="text-align: center; " class ="frame1">
-                <span class ="helper1"></span><img class="test rounded-circle" alt="80x80" src="https://firebasestorage.googleapis.com/v0/b/galleryface-dfb6b.appspot.com/o/825EA0B4-322B-4627-B842-62B927656208.jpg?alt=media&token=5f6d4a64-6771-49ba-8457-59f2346e02c3" class ="friendPic">
+                <span class ="helper1"></span><img class="test rounded-circle" alt="80x80" src="https://firebasestorage.googleapis.com/v0/b/galleryface-dfb6b.appspot.com/o/825EA0B4-322B-4627-B842-62B927656208.jpg?alt=media&token=5f6d4a64-6771-49ba-8457-59f2346e02c3" class ="friendPic" id="myProfilePic">
                 </div>
+                <li>
+                    <a role="button" id = "UpdateProfile" data-bs-toggle="modal" data-bs-target="#modal-myprofile-form" style="text-align: center; ">Update Profile <i class="fa-solid fa-user-pen"></i></a>
+                </li>
                 <li class="active">
-                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Friends</a>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Friends <i class="fa-solid fa-face-sunglasses"></i></a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
                             <a role="button" id = "AddFriend" data-bs-toggle="modal" data-bs-target="#modal-login-form"><i class="fa-solid fa-circle-plus"></i> Add Friend</a>
                         </li>
                     </ul>
                 </li>
-                <li>
-                    <a href="#">Contact</a>
-                </li>
+                
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -180,7 +183,40 @@
         </div>
         </div>
     </div>
+    </div>
+    <!-- Update Profile modal -->
+    <div class="modal fade" id="modal-myprofile-form" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+            <h4 class="modal-title w-100 font-weight-bold"><span style="font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 1.6rem">FaceGallery</span>  |  Update Profile</h4>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body mx-3">
+            <form action="#" enctype="multipart/form-data" id = "myProfile">
+                <div class="md-form mb-4">
+                <div class="form-floating mb-3">
+                    <p>Add Image to Update Profile Picture</p>
+                    <p><input type="file" class="form-control" name="myProfilePicture" id = "myProfilePicture" placeholder="Choose Image"></p>
+                </div>
+                </div>
 
+                <div class="md-form mb-4">
+                <div class="form-floating">
+                    <p>Type Name to Update Username</p>
+                    <p><input type="text" class="form-control" name = "myName" id = "myName" placeholder=""></p>
+                </div>
+                </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                <button type="submit" form="myProfile" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+            
+        </div>
+        </div>
+    </div>
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

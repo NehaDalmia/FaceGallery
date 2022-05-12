@@ -1,7 +1,7 @@
 
 import { initializeApp } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, collection, getDocs , getDoc, setDoc , doc, updateDoc, arrayUnion} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
-import {  getAuth, onAuthStateChanged , updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
+import {  getAuth, onAuthStateChanged , signInAnonymously,  updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
 
 //Firebase Config
@@ -30,11 +30,16 @@ onAuthStateChanged(auth, (user) => {
     
     const docRef = doc(db, "users", user.uid);
     document.getElementById("name-header").textContent = "Hello, "+user.displayName;
-
+    document.getElementById("myName").setAttribute("placeholder",user.displayName);
+    
     getDoc(docRef).then((snapshot) => {   // Getting Friends from Database
       let docData = snapshot.data();
       let imageUrls = docData.images;
       let friendNames = docData.friendNames;
+      if(docData.myProfilePicture != undefined)
+      {
+        document.getElementById("myProfilePic").setAttribute("src",docData.myProfilePicture);
+      }
       for (let index = 0; friendNames!=undefined && index < friendNames.length; index++) {
         addFriend(friendNames[index],index)
       }
@@ -88,6 +93,8 @@ imageUploadForm.addEventListener('submit',(e) => {
       }
     }, 
     (error) => {
+      $('#modal-image-form').modal('hide');
+      imageUploadForm.reset();
       // A full list of error codes is available at
       // https://firebase.google.com/docs/storage/web/handle-errors
       switch (error.code) {
@@ -131,8 +138,18 @@ friendUploadForm.addEventListener('submit',(e) => {
   e.preventDefault();
  console.log(e);
   // console.log(friendUploadForm)
+
+  if(e.target[0].files == undefined || e.target[0].files.length ==0 || friendUploadForm.friendName == undefined)
+  {
+    alert("Enter Details Correctly");
+    $('#modal-login-form').modal('hide');
+    friendUploadForm.reset();
+    return;
+  }
+
   const image = e.target[0].files[0];
   const name = friendUploadForm.friendName.value;
+  
   console.log(image);
   console.log(name);
   const metadata = {
@@ -158,6 +175,8 @@ friendUploadForm.addEventListener('submit',(e) => {
     }
   }, 
   (error) => {
+    $('#modal-login-form').modal('hide');
+    friendUploadForm.reset();
     // A full list of error codes is available at
     // https://firebase.google.com/docs/storage/web/handle-errors
     switch (error.code) {
@@ -192,7 +211,95 @@ friendUploadForm.addEventListener('submit',(e) => {
   friendUploadForm.reset();
 })
 
+// Update Profile
 
+const profileUpdateForm = document.querySelector('#myProfile')
+profileUpdateForm.addEventListener('submit',(e) => {
+  e.preventDefault();
+  console.log(profileUpdateForm.myName)
+  console.log(e.target[0].files)
+  if(e.target[0].files!=undefined && e.target[0].files.length!=0)
+  {
+    const image = e.target[0].files[0];
+    const metadata = {
+      contentType: image.type
+    };
+    const storageRef = ref(storage,image.name);
+    const uploadTask = uploadBytesResumable(storageRef, image, metadata);
+    console.log("uploaded!")
+    
+
+    uploadTask.on('state_changed',
+    (snapshot) => {
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case 'paused':
+          console.log('Upload is paused');
+          break;
+        case 'running':
+          console.log('Upload is running');
+          break;
+      }
+    }, 
+    (error) => {
+      $('#modal-login-form').modal('hide');
+      friendUploadForm.reset();
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case 'storage/unauthorized':
+          // User doesn't have permission to access the object
+          break;
+        case 'storage/canceled':
+          // User canceled the upload
+          break;
+
+        // ...
+
+        case 'storage/unknown':
+          // Unknown error occurred, inspect error.serverResponse
+          break;
+      }
+    }, 
+    () => {
+      // Upload completed successfully, now we can get the download URL
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        console.log('File available at', downloadURL);
+        const docRef = doc(db,'users',auth.currentUser.uid);
+        updateDoc(docRef,{
+          myProfilePicture: downloadURL
+        });
+        document.getElementById("myProfilePic").setAttribute("src",downloadURL);
+      });
+    })
+  }
+  if(profileUpdateForm.myName != undefined && profileUpdateForm.myName.value != "")
+  {
+    const name = profileUpdateForm.myName.value;
+   
+    async function updateName()
+    {
+    await updateProfile(auth.currentUser, {
+      displayName: name
+    }).then(function() {
+     
+      var displayName = auth.currentUser.displayName;
+      console.log("name changed to "+displayName)
+      document.getElementById("name-header").textContent = "Hello, "+auth.currentUser.displayName;
+      document.getElementById("myName").setAttribute("placeholder",auth.currentUser.displayName);
+      
+    }, function(error) {
+      // An error happened.
+    });
+    }
+    updateName();
+    
+  }
+  $('#modal-myprofile-form').modal('hide');
+  profileUpdateForm.reset();
+})
 
 
 function addImage(imageUrl)

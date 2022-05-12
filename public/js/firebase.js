@@ -61,6 +61,8 @@ signupForm.addEventListener('submit', (e) => {
       console.log('name set: ',name)
     })
     .catch(err => {
+      alert("Please Enter Credentials Correctly")
+      signupForm.reset()
       console.log(err.message)
     })
   
@@ -81,15 +83,16 @@ loginForm.addEventListener('submit', (e) => {
     $('#modal-login-form').modal('hide');
     loginForm.reset();
     window.location = "/profile/"+cred.user.uid
-    // post("/", {DisplayName: "cred.user.name", uuidL "cred.user.uuid" });
 })
 .then((result)=>{
   console.log("")
 })
 .catch((error) => {
-    console.log(err.message)
-    alert(error.message + " (" + error.code + ")");
-    document.getElementById("signup-pass").value = "";
+    console.log(error.message)
+    alert("Please recheck Username and/or Password");
+    document.getElementById("login-pass").value = "";
+    loginForm.reset();
+    $('#modal-login-form').modal('hide');
 });
 })
 
