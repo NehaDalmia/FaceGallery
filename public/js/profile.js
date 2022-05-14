@@ -309,6 +309,7 @@ function addImage(imageUrl)
   var aTag = document.createElement("outerA");
   var elem = document.createElement("img");
   divTag.setAttribute("class","item selfie col-lg-3 col-md-4 col-6 col-sm");
+  divTag.setAttribute("style", "overflow: hidden; max-height: 300px;")
   aTag.setAttribute("href",imageUrl);
   aTag.setAttribute("class","fancylight popup-btn");
   aTag.setAttribute("data-fancybox-group","light")
@@ -329,4 +330,10 @@ function addFriend(friendName,index)
   document.getElementById("homeSubmenu").appendChild(elem);
 }
 
-
+// Log out
+const logout = document.querySelector('#logout');
+logout.addEventListener('click', (e) => {
+  e.preventDefault();
+  auth.signOut();
+  window.location.href = "/";
+});
