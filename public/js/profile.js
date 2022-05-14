@@ -302,25 +302,55 @@ profileUpdateForm.addEventListener('submit',(e) => {
 })
 
 
-function addImage(imageUrl)
-{
+// function addImage(imageUrl)
+// {
   
-  var divTag = document.createElement("outerDiv");
-  var aTag = document.createElement("outerA");
-  var elem = document.createElement("img");
-  divTag.setAttribute("class","item selfie col-lg-3 col-md-4 col-6 col-sm");
-  divTag.setAttribute("style", "overflow: hidden; max-height: 300px;")
-  aTag.setAttribute("href",imageUrl);
-  aTag.setAttribute("class","fancylight popup-btn");
-  aTag.setAttribute("data-fancybox-group","light")
-  elem.setAttribute("src", imageUrl);
-  elem.setAttribute("class", "img-fluid");
-  elem.setAttribute("alt", "");
-  elem.setAttribute("style","object-fit: cover")
-  divTag.appendChild(aTag);
-  aTag.appendChild(elem);
-  document.getElementById("homepage-gallery").appendChild(divTag);
+//   var divTag = document.createElement("outerDiv");
+//   var aTag = document.createElement("outerA");
+//   var elem = document.createElement("img");
+//   divTag.setAttribute("class","item selfie col-lg-3 col-md-4 col-6 col-sm");
+//   divTag.setAttribute("style", "overflow: hidden; max-height: 300px;")
+//   aTag.setAttribute("href",imageUrl);
+//   aTag.setAttribute("class","fancylight popup-btn");
+//   aTag.setAttribute("data-fancybox-group","light")
+//   elem.setAttribute("src", imageUrl);
+//   elem.setAttribute("class", "img-fluid");
+//   elem.setAttribute("alt", "");
+//   elem.setAttribute("style","object-fit: cover")
+//   divTag.appendChild(aTag);
+//   aTag.appendChild(elem);
+//   document.getElementById("homepage-gallery").appendChild(divTag);
+// }
+async function addImage(imageUrl)
+{
+  var outerdivone = document.createElement("div");
+  outerdivone.setAttribute("class","col-lg-4 col-sm-6");
+  outerdivone.setAttribute("style", "max-height: 300px; overflow: hidden; margin-bottom: 30px;");
+  var outerdivtwo =  document.createElement("div");
+  outerdivtwo.setAttribute("class","img-thumbnail img-responsive");
+  outerdivtwo.setAttribute("id","thumbnail");
+  outerdivone.appendChild(outerdivtwo);
+
+  var aTag = document.createElement("a");
+  aTag.setAttribute("title","Image");
+  //aTag.setAttribute("href","#")
+  var imageTag = document.createElement("img")
+  imageTag.setAttribute("src",imageUrl);
+  imageTag.setAttribute("style","object-fit: cover; max-width: 100%; height: auto; display: block;margin-right: auto; margin-left: auto;");
+  aTag.appendChild(imageTag);
+  outerdivtwo.appendChild(aTag);
+
+  document.getElementById("row-class").appendChild(outerdivone);
+
+  // add listeners
+  
+  
 }
+$(document).on('click', '#thumbnail', function() {
+  $('#img-modal-body').empty();
+  $($(this).parents('div').html()).appendTo('#img-modal-body');
+  $('#modal').modal('show');
+});
 
 function addFriend(friendName,index)
 {

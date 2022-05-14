@@ -102,8 +102,11 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
+                        <ul class="nav navbar-nav ml-auto" style="margin-left: auto;">
                             <!-- Explore Images of the Ones Closest to You! -->
+                            <li>
+                                <a href="" id="logout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -112,15 +115,20 @@
               </body>
 
 <!-- Gallery Section Start -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script>
 
-        <div class="container">
-                <div class="portfolio-item row" id ="homepage-gallery">
-                
-                </div>
-            </div>
+<!-- <link rel="stylesheet" href="../css/gallery.css"> -->
+<div class="row" id = "row-class">
+    
+</div>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.js"></script> -->
+    
+ <!-- <div class="container">
+         <div class="portfolio-item row" id ="homepage-gallery">
+           
+         </div>
+  </div> -->
       
 <!-- Gallery Section End -->
     <script type ="module" src="../js/profile.js"></script>
@@ -215,6 +223,19 @@
             </form>
             
         </div>
+        </div>
+    </div>
+
+    <!--Pop Up Modal-->
+    <div id="modal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id ="modal-btn"></button>
+                </div>
+                <div class="modal-body" id = "img-modal-body">
+                </div>
+            </div>
         </div>
     </div>
 
