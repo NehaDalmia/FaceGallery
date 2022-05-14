@@ -1,4 +1,3 @@
-
 import { initializeApp } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
 import { getFirestore, collection, getDocs , getDoc, setDoc , doc, updateDoc, arrayUnion} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {  getAuth, onAuthStateChanged , updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
@@ -82,9 +81,9 @@ downloadBtn.addEventListener("click", function()
 
 
 $('.thumbnail').click(function(){
-	$('.modal-body').empty();
-	$($(this).parents('div').html()).appendTo('.modal-body');
-	$('#modal').modal({show:true});
+  $('.modal-body').empty();
+  $($(this).parents('div').html()).appendTo('.modal-body');
+  $('#modal').modal({show:true});
 });
 
 // $('#modal').on('show.bs.modal', function () {
@@ -99,6 +98,7 @@ async function addImage(imageUrl)
 {
   var outerdivone = document.createElement("div");
   outerdivone.setAttribute("class","col-lg-4 col-sm-6");
+  outerdivone.setAttribute("style", "max-height: 300px; overflow: hidden; margin-bottom: 30px;");
   var outerdivtwo =  document.createElement("div");
   outerdivtwo.setAttribute("class","thumbnail img-responsive");
   outerdivtwo.setAttribute("id","thumbnail");
