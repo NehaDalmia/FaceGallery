@@ -352,6 +352,23 @@ $(document).on('click', '#thumbnail', function() {
   $('#modal').modal('show');
 });
 
+$(document).on('click', '#modal-download-btn', function() {
+  downloadImage((document.getElementById("img-modal-body").childNodes[0].childNodes[0].childNodes[0].getAttribute("src")));
+});
+
+async function downloadImage(imageSrc) {
+  const image = await fetch(imageSrc)
+  const imageBlog = await image.blob()
+  const imageURL = URL.createObjectURL(imageBlog)
+
+  const link = document.createElement('a')
+  link.href = imageURL
+  link.download = 'image file name here'
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
 function addFriend(friendName,index)
 {
   var elem = document.createElement("a");
