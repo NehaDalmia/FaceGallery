@@ -22,13 +22,14 @@ initializeApp(firebaseConfig);
 const storage = getStorage();
 const db = getFirestore()
 const auth = getAuth()
-
+var favourites = []
 // Processing on login time
 
 onAuthStateChanged(auth, (user) => {
   if (user) { // User is signed in
     
     const docRef = doc(db, "users", user.uid);
+    
     document.getElementById("name-header").textContent = "Hello, "+user.displayName;
     document.getElementById("myName").setAttribute("placeholder",user.displayName);
     
@@ -36,6 +37,7 @@ onAuthStateChanged(auth, (user) => {
       let docData = snapshot.data();
       let imageUrls = docData.images;
       let friendNames = docData.friendNames;
+      favourites =  docData.favourites;
       if(docData.myProfilePicture != undefined)
       {
         document.getElementById("myProfilePic").setAttribute("src",docData.myProfilePicture);
@@ -46,7 +48,7 @@ onAuthStateChanged(auth, (user) => {
       for (let index = 0; imageUrls!=undefined && index < imageUrls.length; index++) {
         addImage(imageUrls[index])
     }
-
+    document.getElementById("favourites-option").setAttribute("href",window.location+"/favourites");
     });
 
     
@@ -349,11 +351,31 @@ async function addImage(imageUrl)
 $(document).on('click', '#thumbnail', function() {
   $('#img-modal-body').empty();
   $($(this).parents('div').html()).appendTo('#img-modal-body');
+  let imgSrc =  ((document.getElementById("img-modal-body").childNodes[0].childNodes[0].childNodes[0].getAttribute("src")));
+  let div = (document.getElementById("img-modal-body").parentNode.childNodes[1].childNodes[3]);
+  if(favourites != undefined && favourites.includes(imgSrc))
+    div.setAttribute("style","border: none; background: none; color: #FF7F7F;");
+  else 
+    div.setAttribute("style","border: none; background: none; color: #696969;");
   $('#modal').modal('show');
 });
 
 $(document).on('click', '#modal-download-btn', function() {
   downloadImage((document.getElementById("img-modal-body").childNodes[0].childNodes[0].childNodes[0].getAttribute("src")));
+});
+$(document).on('click', '#modal-favourite-btn', function() {
+  let imgSrc = ((document.getElementById("img-modal-body").childNodes[0].childNodes[0].childNodes[0].getAttribute("src")));
+  let div = (document.getElementById("img-modal-body").parentNode.childNodes[1].childNodes[3]);
+  div.setAttribute("style","border: none; background: none; color: #FF7F7F;");
+  if(!(favourites != undefined && favourites.includes(imgSrc)))
+  {
+    const docRef = doc(db,'users',auth.currentUser.uid);
+    updateDoc(docRef,{
+      favourites: arrayUnion(imgSrc)
+    });
+    favourites.push(imgSrc)
+  }
+  console.log(favourites)
 });
 
 async function downloadImage(imageSrc) {
@@ -367,6 +389,11 @@ async function downloadImage(imageSrc) {
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+}
+
+async function addFavourite(imageSrc)
+{
+  const docRef = doc(db, "users", auth.currentUser.uid);
 }
 
 function addFriend(friendName,index)
