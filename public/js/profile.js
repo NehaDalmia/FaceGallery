@@ -23,6 +23,8 @@ const storage = getStorage();
 const db = getFirestore()
 const auth = getAuth()
 var favourites = []
+var imageUrls = []
+var friendUrls = []
 // Processing on login time
 
 onAuthStateChanged(auth, (user) => {
@@ -35,8 +37,9 @@ onAuthStateChanged(auth, (user) => {
     
     getDoc(docRef).then((snapshot) => {   // Getting Friends from Database
       let docData = snapshot.data();
-      let imageUrls = docData.images;
+      imageUrls = docData.images;
       let friendNames = docData.friendNames;
+      friendUrls = docData.friendsPictures;
       favourites =  docData.favourites;
       if(docData.myProfilePicture != undefined)
       {
@@ -302,27 +305,6 @@ profileUpdateForm.addEventListener('submit',(e) => {
   $('#modal-myprofile-form').modal('hide');
   profileUpdateForm.reset();
 })
-
-
-// function addImage(imageUrl)
-// {
-  
-//   var divTag = document.createElement("outerDiv");
-//   var aTag = document.createElement("outerA");
-//   var elem = document.createElement("img");
-//   divTag.setAttribute("class","item selfie col-lg-3 col-md-4 col-6 col-sm");
-//   divTag.setAttribute("style", "overflow: hidden; max-height: 300px;")
-//   aTag.setAttribute("href",imageUrl);
-//   aTag.setAttribute("class","fancylight popup-btn");
-//   aTag.setAttribute("data-fancybox-group","light")
-//   elem.setAttribute("src", imageUrl);
-//   elem.setAttribute("class", "img-fluid");
-//   elem.setAttribute("alt", "");
-//   elem.setAttribute("style","object-fit: cover")
-//   divTag.appendChild(aTag);
-//   aTag.appendChild(elem);
-//   document.getElementById("homepage-gallery").appendChild(divTag);
-// }
 async function addImage(imageUrl)
 {
   var outerdivone = document.createElement("div");
@@ -391,17 +373,31 @@ async function downloadImage(imageSrc) {
   document.body.removeChild(link)
 }
 
-async function addFavourite(imageSrc)
-{
-  const docRef = doc(db, "users", auth.currentUser.uid);
-}
 
-function addFriend(friendName,index)
+
+async function addFriend(friendName,index)
 {
+  var outerTag = document.createElement("li");
+  outerTag.setAttribute("class","d-flex")
+  outerTag.setAttribute("style","background: #6d7fcc")
+
   var elem = document.createElement("a");
   elem.setAttribute("href",window.location+"/"+index);
-  elem.textContent = friendName;
-  document.getElementById("homeSubmenu").appendChild(elem);
+  elem.textContent = "  "+friendName;
+  elem.setAttribute("style","flex-grow: 3;")
+
+  var img = document.createElement("img");
+  img.setAttribute("class","test2 rounded-circle");
+  img.setAttribute("src",friendUrls[index])
+  elem.prepend(img)
+
+  
+  document.getElementById("homeSubmenu").appendChild(outerTag);
+  
+  outerTag.appendChild(elem)
+  
+  
+  
 }
 
 // Log out
