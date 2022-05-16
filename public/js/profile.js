@@ -209,7 +209,8 @@ friendUploadForm.addEventListener('submit',(e) => {
         friendsPictures: arrayUnion(downloadURL),
         friendNames : arrayUnion(name)
       });
-      addFriend(name);
+      friendUrls.push(downloadURL)
+      addFriend(name, friendUrls.length-1);
     });
   })
   $('#modal-login-form').modal('hide');
