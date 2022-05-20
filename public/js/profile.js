@@ -385,6 +385,8 @@ friendUploadForm.addEventListener('submit',(e) => {
       })
       if(imageUrls!=undefined)
       {
+        pending =1;
+        alert("Please Do not Leave the Page till the Upload is Over!");
         for(let index1 = 0; index1< imageUrls.length; index1++)
         {
           faceAPIJS(downloadURL,imageUrls[index1],indi);
