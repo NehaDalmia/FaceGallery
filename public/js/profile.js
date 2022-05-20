@@ -298,6 +298,11 @@ async function faceAPIJS_img(singleResult, referenceImgURL,index)
       urls : arrayUnion(referenceImgURL)
     })
   }
+    if(pending==1)
+    {
+      alert("Upload Over!");
+      pending = 0;
+    }
   
   
 }
