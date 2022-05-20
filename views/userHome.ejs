@@ -50,7 +50,7 @@
                   width: 175px;
                   height: 175px;
                   /* position: absolute; */
-                  vertical-align: middle;
+                  
                 }
                 .test2 {
                   width: 30px;
@@ -68,7 +68,7 @@
                
                 
                 <div style="text-align: center; " class ="frame1">
-                <span class ="helper1"></span><img class="test rounded-circle" alt="80x80" src="https://www.seekpng.com/png/detail/48-482323_baby-monster-svg-scrapbook-cut-file-cute-clipart.png" class ="friendPic" id="myProfilePic">
+                <span class ="helper1"></span><img class="test rounded-circle"  alt="80x80" src="https://www.seekpng.com/png/detail/48-482323_baby-monster-svg-scrapbook-cut-file-cute-clipart.png" class ="friendPic" id="myProfilePic">
                 </div>
                 <li>
                     <a role="button" id = "UpdateProfile" data-bs-toggle="modal" data-bs-target="#modal-myprofile-form" style="text-align: center; ">Update Profile <i class="fa-solid fa-user-pen"></i></a>
@@ -84,7 +84,23 @@
                 <li>
                     <a href="#"  id = "favourites-option"><i class="fa-solid fa-star"></i> Favourites</a>
                 </li>
-                
+                <li class="active">
+                    <a href="#expressionmenu"  data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa-solid fa-face-laugh"></i> Expressions!</i></a>
+                    <ul class="collapse list-unstyled" id="expressionmenu">
+                        <li>
+                            <a id = "happy-page">Happy  <i class="fa-solid fa-face-laugh-beam" style="color: yellow"></i></a>
+                        </li>
+                        <li>
+                            <a id = "sad-page">Sad  <i class="fa-solid fa-face-sad-tear" style="color: yellow"></i></a>
+                        </li>
+                        <li>
+                            <a id = "angry-page">Angry  <i class="fa-solid fa-face-angry" style="color: yellow"></i></a>
+                        </li>
+                        <li>
+                            <a id = "surprised-page">Surprised  <i class="fa-solid fa-face-surprise" style="color: yellow"></i></a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
 
             <ul class="list-unstyled CTAs">
@@ -132,6 +148,8 @@
       
 <!-- Gallery Section End -->
     <script type ="module" src="../js/profile.js"></script>
+    <script type="module" src="../js/face-api.js"></script>
+    <script type="module" src="../js/face-api.min.js"></script>
         </div>
     </div>
 

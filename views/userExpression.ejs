@@ -2,14 +2,14 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>FriendPage</title>
+  <title>Expression!</title>
   
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <html>
 <head>
-	<title>Photo Gallery</title>
+	<title>Emotions Gallery</title>
 	<link href="https://fonts.googleapis.com/css?family=Raleway:400,500i,700,800" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700,900" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -34,20 +34,10 @@
 <div class="container">
 <div class = "header-div">
 <h1 id ="friend-name" class ="header-message"></h1>
-<!-- <button type="button" id="downloadButton" class="btn btn-default download-button" style ="display: none;" ><i class="fa-solid fa-download"></i> Get Album</button> -->
 <button type="button" id="downloadButton" class="btn btn-default download-button" ><i class="fa-solid fa-download"></i> Get Album</button>
-
 </div>
-<hr>
-<!-- <div class="spinner-border" role="status" id = "loader">
-</div>	 -->
+<hr>	
 <div class="row" id = "row-class">
-    
-		<!-- <div class="col-lg-4 col-sm-6">
-			<div class="thumbnail img-responsive">
-				<a href="#" title="Image 1"><img src="https://images.unsplash.com/photo-1523279719030-9806e8392152?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=83ec2854d04d0f08312dec44bf645e2d&auto=format&fit=crop&w=500&q=60"></a>
-			</div>
-		</div> -->
 	</div>
 </div>
 <div id="modal" class="modal fade" tabindex="-1" role="dialog">
@@ -86,19 +76,17 @@
 </body>
 </html>
 <!-- partial -->
-<script>
-    const friendIndex = "<%= friendIndex %>";
-</script>
 
 <!-- <script src="../../js/msRest.browser.js"></script>
 <script src="../../js/cognitiveservices-face.js"></script> -->
-<script type="module" src="../../js/face-api.js"></script>
-<script type="module" src="../../js/face-api.min.js"></script>
+<script>
+    const emotion = "<%= emotion %>";
+</script>
 <script type="module" src="../../js/bluebird.js"></script>
 <script type="text/javascript" src="../../js/jszip.js"></script>
 <!-- <script type="module" src="../../js/jszip.min.js"></script> -->
 <script type="module" src="../../js/FileSaver.js"></script>
-<script type="module" src="../../js/friendPage.js"></script>
+<script type="module" src="../../js/expressionsPage.js"></script>
 
 
 </body>

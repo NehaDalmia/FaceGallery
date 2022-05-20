@@ -2,6 +2,7 @@ import { initializeApp } from  "https://www.gstatic.com/firebasejs/9.4.0/firebas
 import { getFirestore, collection, getDocs , getDoc, setDoc , doc, updateDoc, arrayUnion} from "https://www.gstatic.com/firebasejs/9.4.0/firebase-firestore.js";
 import {  getAuth, onAuthStateChanged , updateProfile , signInWithEmailAndPassword } from  "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL  } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-storage.js";
+// import { isHttpHeadersLike } from "@azure/ms-rest-js/es/lib/httpHeaders";
 
 // const key = "1a11b1b99c844e58a47679a1452d6c11"
 // const endpoint = "https://face-neha.cognitiveservices.azure.com/"
@@ -56,8 +57,24 @@ onAuthStateChanged(auth, (user) => {
       let uploadImages = docData.images;
       //faceAPIAzure(friendDisplayURL, uploadImages);
      
-      faceAPIJS(friendDisplayURL,uploadImages)
+      // faceAPIJS(friendDisplayURL,uploadImages)
      
+    });
+    const docRefimg =  doc(db, "users", user.uid+"#"+friendIndex.toString());
+    getDoc(docRefimg).then((snapshot) => {
+      let docData = snapshot.data();
+      if(docData.urls != undefined)
+      {
+        let urls = docData.urls;
+        if(urls != undefined)
+        {
+          for(let index = 0; index < urls.length; index++)
+          {
+            addImage(urls[index])
+            imageUrls.push(urls[index])
+          }
+        }
+      }
     });
 
     

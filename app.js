@@ -36,9 +36,25 @@ app.post('/profile/:user',(req,res)=>{
 app.get('/profile/:user/favourites',(req,res)=>{
     res.render('userFavourites');
 })
+app.get('/profile/:user/angry',(req,res)=>{
+    res.render('userExpression',{emotion: "angry"});
+})
+app.get('/profile/:user/happy',(req,res)=>{
+    res.render('userExpression',{emotion: "happy"});
+})
+app.get('/profile/:user/sad',(req,res)=>{
+    res.render('userExpression',{emotion: "sad"});
+})
+app.get('/profile/:user/surprised',(req,res)=>{
+    res.render('userExpression',{emotion: "surprised"});
+})
+
 app.get('/profile/:user/:friend',(req,res)=>{
     res.render('userFriends',{friendIndex: req.params.friend});
 })
+
+
+
 
 // app.get('/profile',(req,res)=>{
 //     res.render('profile');
