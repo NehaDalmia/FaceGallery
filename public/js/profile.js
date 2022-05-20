@@ -17,6 +17,9 @@ const firebaseConfig = {
   measurementId: "G-61ZLTEHST1"
 };
 
+
+let pending = 0;
+
 // Initialize Firebase
 
 initializeApp(firebaseConfig);
@@ -132,7 +135,11 @@ imageUploadForm.addEventListener('submit',(e) => {
         updateDoc(docRef,{
           images: arrayUnion(downloadURL)
         });
-        
+        if(pending ==0)
+        {
+          pending = 1;
+          alert("Please Do not Leave the Page till the Upload is Over!");
+        }
         addImage(downloadURL)
         addImageToDb(downloadURL)
       });
@@ -162,7 +169,14 @@ async function addImageToDb(downloadURL)
 {
   
   if(friendUrls == undefined)
+  {
+    if(pending==1)
+    {
+      alert("Upload Over!");
+      pending = 0;
+    }
     return;
+  }
 
    
   
@@ -217,7 +231,11 @@ async function addImageToDb(downloadURL)
     updateDoc(docRef,{
       surprised_images: arrayUnion(downloadURL),
       });
-  
+  if(pending==1)
+  {
+    alert("Upload Over!");
+    pending = 0;
+  }
   console.log(detectionsWithExpressions);
 }
 
@@ -238,7 +256,14 @@ async function faceAPIJS(friendDisplayURL,uploadImage, index)
   .withFaceDescriptor()
  
   if(singleResult == undefined || singleResult.length ==0)
+  {
+    if(pending==1)
+    {
+      alert("Upload Over!");
+      pending = 0;
+    }
     return;
+  }
   faceAPIJS_img(singleResult,uploadImage,index);
   
 }
@@ -254,6 +279,11 @@ async function faceAPIJS_img(singleResult, referenceImgURL,index)
   .withFaceDescriptors()
   
   if (!results.length) {
+    if(pending==1)
+    {
+      alert("Upload Over!");
+      pending = 0;
+    }
     return
   }
   const faceMatcher = new faceapi.FaceMatcher(results)
@@ -268,6 +298,7 @@ async function faceAPIJS_img(singleResult, referenceImgURL,index)
       urls : arrayUnion(referenceImgURL)
     })
   }
+  
   
 }
 
