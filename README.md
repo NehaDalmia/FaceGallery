@@ -12,7 +12,7 @@
 
 **FaceGallery** is an image-management web application which uses **Face Recognition** technology to organise images . It allows you to keep track of different people appearing in your pictures by looking for them in the uploaded images and displaying all images of a given person in their own private gallery. It offers a large number of functionalities ranging from **uploading images** to **sorting them by categories** along with providing a beautiful user interface and a seamless user experience. The app is served by a **Node.js + Express server** and the frontend is written in vanilla **JavaScript**, along with **HTML, CSS** and **EJS.**
 
-Check out **FaceGallery** @ [http://facegallery.herokuapp.com](http://facegallery.herokuapp.com). It's free , it's helpful and it is fun!.
+Check out **FaceGallery** @ [http://facegallery.herokuapp.com](http://facegallery.herokuapp.com). It's free , it's helpful and it is fun!
 
 Each users FaceGallery homepage displays a beautifully rendered dynamic image gallery like this: 
 
@@ -56,23 +56,23 @@ The user can update information like their profile picture and/or username. This
 
 ##### 1. Favourites
 
-The user can mark any image to be their favourite by clicking on the greyed out heart option on  top left of the images, (if an image is already a favourite the heart will appear pink) . On marking an image as a favourite the heart turns pink in colour. On going to the favourites section on the nabar, the user can access their favourite images gallery.
+The user can mark any image to be their favourite by clicking on the **greyed out heart** option on  top left of the images, (if an image is already a favourite the heart will appear pink) . On marking an image as a favourite the heart turns pink in colour. On going to the favourites section on the nabar, the user can access their favourite images gallery.
 
 ##### 2. Expression Galleries - XFactor
 
-FaceGallery uses Face Recognition technology to extract certain expressions from the upload images and created curated galleries consisting of all images with a particular expression. These galleries can be accessed from the Expressions option on the navigation bar where the user can choose the desired expression they want to see images of. This feature is not present in currently existing online web galleries.
+FaceGallery uses Face Recognition technology to extract certain expressions from the upload images and created curated galleries consisting of all images with a particular expression. These galleries can be accessed from the **Expressions option** on the navigation bar where the user can choose the desired expression they want to see images of. This feature is not present in currently existing online web galleries.
 
 ##### 3. Download Image Gallery
 
-Using the 'Get Album' button on the gallery pages of friends/favourites/expressions the user can download all the images collectively in a single zip folder
+Using the **Get Album button** on the gallery pages of friends/favourites/expressions the user can download all the images collectively in a single zip folder
 
 ##### 4. Download Individual Images
 
-Allows the user to download any individual image using the download option in the top left corner of the image, which enables this application to be used as an image storing server as well.
+Allows the user to download any individual image using the **download option** in the top left corner of the image, which enables this application to be used as an image storing server as well.
 
 ##### 5. Friends List
 
-User can view their list of friends using the 'Friends' dropdown menu on the navigation bar where their names as well as their profile pictures are displayed.
+User can view their list of friends using the **'Friends' dropdown menu** on the navigation bar where their names as well as their profile pictures are displayed.
 
 ##### 6. Image Thumbnails and Dynamic Gallery
 
@@ -80,11 +80,11 @@ The image thumbnails are visible in the form of a dynamic gallery which resizes 
 
 ##### 7. User Demo
 
-The user-homepage contains a link to this document which will help the user use and understand the functionalities of FaceGallery better to get the most out of their experience!
+The user-homepage contains a link to this document in the **User Guide button** which will help the user use and understand the functionalities of FaceGallery better to get the most out of their experience!
 
 ##### 8. Features Tab
 
-The features tab on the homepage highlights all the main functionalities of the web application so that the user can make an informed choice before signing up on the website.
+The **features tab** on the homepage highlights all the main functionalities of the web application so that the user can make an informed choice before signing up on the website.
 
 
 
