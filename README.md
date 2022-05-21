@@ -38,9 +38,10 @@ User can upload one or images of their choice from their device which will be re
 
 User adds 'friends' who are people they want to find in their uploaded images. This requires uploading a name and a reference picture of the friend, after which all current and future pics of that friend can be seen in a separate gallery
 
-
+<p>
 <a href="https://ibb.co/YcWNPcM"><img src="https://i.ibb.co/X74Wj7g/friends-list.png" title = "Friend List" alt="friend-list" border="0" style="height: 300px"></a>
-
+  <em> Friend List </em>
+</p>
 <a href="https://ibb.co/6843cjM"><img src="https://i.ibb.co/MfRYyFv/friends-upload.png" title = "Upload Friend" alt="upload-friend" border="0" style="height: 300px"></a>
 
 <a href="https://ibb.co/xFXhcdz"><img src="https://i.ibb.co/CPmBXDV/friends-solo-gallery.png" title = "Friends gallery with all their pictures " alt="friend-gallery" border="0" style="height: 300px"></a>
