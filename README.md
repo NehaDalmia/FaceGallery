@@ -126,3 +126,6 @@ The features tab on the homepage highlights all the main functionalities of the 
 2. Install the dependencies, run `npm install` from the directory cotaining  `package.json`
 3. Run the code using `node app`  from the directory cotaining `app.js`
 
+You can login to the existing website using these guest credentials for an existing account : 
+username: `nehadalmia002@gmail.com` password: `123456`
+
