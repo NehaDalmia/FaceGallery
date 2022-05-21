@@ -44,6 +44,7 @@ User adds 'friends' who are people they want to find in their uploaded images. T
 <a href="https://ibb.co/xFXhcdz"><img src="https://i.ibb.co/CPmBXDV/friends-solo-gallery.png" title = "Friends gallery with all their pictures " alt="friend-gallery" border="0" style="height: 300px"></a>
 
 </div>
+
 ##### 4. Update Profile Information
 
 The user can update information like their profile picture and/or username. This option is present below the display picture of the user.
@@ -107,8 +108,8 @@ The features tab on the homepage highlights all the main functionalities of the 
 | Templating Engine                      | EJS                                                          |
 | Server Runtime Environment + Framework | Node.js + Express                                            |
 | Face Recognition API                   | face-api.js: [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html) |
-| User Authentication                    | Firebase auth                                                |
-| Database                 |             | Firebase storage
+| User Authentication                    | Firebase Authentication                                                |
+| Database                 |             Firebase storage |
 
 ## Platforms
 
