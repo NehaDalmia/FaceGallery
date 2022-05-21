@@ -6,6 +6,7 @@
 2. [Features](#features)
 3. [Tools and Technology used](#tools-and-technology-used)
 4. [Platforms](#platforms)
+5. [Developer Guide](#developer-guide)
 
 ## Introduction
 
@@ -109,7 +110,7 @@ The features tab on the homepage highlights all the main functionalities of the 
 | Server Runtime Environment + Framework | Node.js + Express                                            |
 | Face Recognition API                   | face-api.js: [face-api.js](https://justadudewhohacks.github.io/face-api.js/docs/index.html) |
 | User Authentication                    | Firebase Authentication                                                |
-| Database                 |             Firebase storage |
+| Database                 |             Firebase Storage |
 
 ## Platforms
 
@@ -117,3 +118,11 @@ The features tab on the homepage highlights all the main functionalities of the 
 - We advise you to use it on **Chrome** or any other **Chromium-based** browser to get the best results.
 - We advise you to use it on a **PC** to get the best results.
 - **FaceGallery** should work on other browsers (like Edge, Safari) and other devices (like mobile devices), however the layouts and styling might get skewed.
+
+## Developer Guide
+
+1. Clone the repository 
+`git clone https://github.com/NehaDalmia/FaceGallery.git`
+2. Install the dependencies, run `npm install` from the directory cotaining  `package.json`
+3. Run the code using `node app`  from the directory cotaining `app.js`
+
