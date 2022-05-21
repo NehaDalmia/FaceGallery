@@ -38,13 +38,7 @@ User can upload one or more images of their choice from their device which will 
 
 Users add 'friends' who are people they want to find in their uploaded images. This requires uploading a name and a reference picture of the friend, after which all current and future pictures of that friend can be seen in a separate gallery. The option to add friends is present in the scroll down menu on the left side of the profile page under Friends bar using the **Add Friend button**. Along with this are the options to access the private galleries of all your friends.
 
-<div>
-
-<a href="https://ibb.co/6843cjM"><img src="https://i.ibb.co/MfRYyFv/friends-upload.png" title = "Upload Friend" alt="upload-friend" border="0" style="height: 300px"></a>
-
-<a href="https://ibb.co/xFXhcdz"><img src="https://i.ibb.co/CPmBXDV/friends-solo-gallery.png" title = "Friends gallery with all their pictures " alt="friend-gallery" border="0" style="height: 300px"></a>
-
-</div>
+<a href="https://ibb.co/TWFhqP0"><img src="https://i.ibb.co/8YS84Px/u1-Artboard-1.png" alt="u1-Artboard-1" border="0"></a>
 
 ##### 4. Update Profile Information
 
@@ -58,9 +52,13 @@ The user can update information like their profile picture and/or username. This
 
 The user can mark any image to be their favourite by clicking on the **greyed out heart** option on  top left of the images, (if an image is already a favourite the heart will appear pink) . On marking an image as a favourite the heart turns pink in colour. On going to the favourites section on the nabar, the user can access their favourite images gallery.
 
+<a href="https://ibb.co/p0Wn4d8"><img src="https://i.ibb.co/DVGLwQy/u2-02.png" alt="u2-02" border="0"></a>
+
 ##### 2. Expression Galleries - XFactor
 
 FaceGallery uses Face Recognition technology to extract certain expressions from the upload images and created curated galleries consisting of all images with a particular expression. These galleries can be accessed from the **Expressions option** on the navigation bar where the user can choose the desired expression they want to see images of. This feature is not present in currently existing online web galleries.
+
+<a href="https://ibb.co/vZkH49w"><img src="https://i.ibb.co/HnqVTZF/u4-02.png" alt="u4-02" border="0"></a>
 
 ##### 3. Download Image Gallery
 
@@ -70,13 +68,19 @@ Using the **Get Album button** on the gallery pages of friends/favourites/expres
 
 Allows the user to download any individual image using the **download option** in the top left corner of the image, which enables this application to be used as an image storing server as well.
 
+<a href="https://ibb.co/tzsb6cn"><img src="https://i.ibb.co/m0qHKtd/faceg7.png" alt="faceg7" border="0"></a>
+
 ##### 5. Friends List
 
 User can view their list of friends using the **'Friends' dropdown menu** on the navigation bar where their names as well as their profile pictures are displayed.
 
+<a href="https://ibb.co/qRB6GSz"><img src="https://i.ibb.co/khKZn7p/faceg3.png" alt="faceg3" border="0"></a>
+
 ##### 6. Image Thumbnails and Dynamic Gallery
 
 The image thumbnails are visible in the form of a dynamic gallery which resizes itself on screen changes and adjusts the thumbnail sizes and locations accordingly. On clicking the image thumbnail the entire image appears rendered in the form of a polariod with additional options.
+
+<a href="https://ibb.co/QQpD5L2"><img src="https://i.ibb.co/wgBcvV9/u3-03.png" alt="u3-03" border="0"></a>
 
 ##### 7. User Demo
 
@@ -86,8 +90,7 @@ The user-homepage contains a link to this document in the **User Guide button** 
 
 The **features tab** on the homepage highlights all the main functionalities of the web application so that the user can make an informed choice before signing up on the website.
 
-
-
+<a href="https://ibb.co/bXT5jk6"><img src="https://i.ibb.co/nj9MqFw/faceg12.png" alt="faceg12" border="0"></a>
 
 ##### 13. UI/UX Enhancements :sparkles:
 
